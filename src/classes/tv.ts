@@ -72,11 +72,23 @@ export default class TV {
     return this.sendIRCC('ApplicationLauncher');
   }
 
+  async resetApplicationLauncher(): Promise<void> {
+    // Go left 5 times and up 2 times
+    await this.left();
+    await this.left();
+    await this.left();
+    await this.left();
+    await this.left();
+    await this.up();
+    await this.up();
+  }
+
   async browser(): Promise<void> {
     // Go to home to make sure the applicationLauncher is not open
     await this.home();
     // Send applicationLauncher to open the app selection screen, then go right 5 times then 1 down. Then enter.
     await this.applicationLauncher();
+    await this.resetApplicationLauncher();
     await this.right();
     await this.right();
     await this.right();
