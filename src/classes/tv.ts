@@ -72,7 +72,7 @@ export default class TV {
     return this.sendIRCC('ApplicationLauncher');
   }
 
-  async openBrowser(): Promise<void> {
+  async browser(): Promise<void> {
     // Go to home to make sure the applicationLauncher is not open
     await this.home();
     // Send applicationLauncher to open the app selection screen, then go right 5 times then 1 down. Then enter.
