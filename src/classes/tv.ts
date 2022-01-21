@@ -288,6 +288,6 @@ export default class TV {
 
     // Increase Volume
     await this.volumeDown(100);
-    await this.volumeUp(20);
+    await this.volumeUp(50);
   }
 }
