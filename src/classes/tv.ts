@@ -9,78 +9,80 @@ export default class TV {
     this.backendURL = process.env.SONY_BACKEND_URL || 'http://localhost:3000';
   }
 
-  sendIRCC(command: string): Promise<Response> {
+  sendIRCC(command: string, times?: number): Promise<Response[]> {
     const url = `${this.backendURL}/tv/${this.ip}`;
-    return fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ command: command }),
-    });
+    const promises: Promise<Response>[] = [];
+    if (!times) times = 1;
+    for (let i = 0; i < times; i++) {
+      promises.push(
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ command: command }),
+        })
+      );
+    }
+    return Promise.all(promises);
   }
 
-  left(): Promise<Response> {
-    return this.sendIRCC('Left');
+  left(times?: number): Promise<Response[]> {
+    return this.sendIRCC('Left', times);
   }
 
-  right(): Promise<Response> {
+  right(times?: number): Promise<Response[]> {
     return this.sendIRCC('Right');
   }
 
-  up(): Promise<Response> {
+  up(times?: number): Promise<Response[]> {
     return this.sendIRCC('Up');
   }
 
-  down(): Promise<Response> {
+  down(times?: number): Promise<Response[]> {
     return this.sendIRCC('Down');
   }
 
-  ok(): Promise<Response> {
+  ok(times?: number): Promise<Response[]> {
     return this.sendIRCC('Confirm');
   }
 
-  off(): Promise<Response> {
+  off(times?: number): Promise<Response[]> {
     return this.sendIRCC('PowerOff');
   }
 
-  on(): Promise<Response> {
+  on(times?: number): Promise<Response[]> {
     return this.sendIRCC('WakeUp');
   }
 
-  sleep(): Promise<Response> {
+  sleep(times?: number): Promise<Response[]> {
     return this.sendIRCC('Sleep');
   }
 
-  volumeUp(): Promise<Response> {
+  volumeUp(times?: number): Promise<Response[]> {
     return this.sendIRCC('VolumeUp');
   }
 
-  volumeDown(): Promise<Response> {
+  volumeDown(times?: number): Promise<Response[]> {
     return this.sendIRCC('VolumeDown');
   }
 
-  mute(): Promise<Response> {
+  mute(): Promise<Response[]> {
     return this.sendIRCC('Mute');
   }
 
-  home(): Promise<Response> {
+  home(): Promise<Response[]> {
     return this.sendIRCC('Home');
   }
 
-  applicationLauncher(): Promise<Response> {
+  applicationLauncher(): Promise<Response[]> {
     return this.sendIRCC('ApplicationLauncher');
   }
 
   async resetApplicationLauncher(): Promise<void> {
     // Go left 5 times and up 2 times
-    await this.left();
-    await this.left();
-    await this.left();
-    await this.left();
-    await this.left();
-    await this.up();
-    await this.up();
+    await this.left(5);
+    await this.up(2);
   }
 
   async browser(): Promise<void> {
@@ -96,5 +98,9 @@ export default class TV {
     await this.right();
     await this.down();
     await this.ok();
+  }
+
+  topOfScreen(): Promise<Response[]> {
+    return this.up(30);
   }
 }
