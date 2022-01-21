@@ -34,6 +34,7 @@ export default class KeyboardManager {
 
   async sendKey(key: string): Promise<void> {
     const [row, col] = this.keyToRowCol(key);
+    if (key.toUpperCase() === key) await this.shift(); // if the letter is capital, shift
     await this.setCol(col); // horizontal first
     await this.setRow(row); // then vertical
     await this.tv.ok();
@@ -73,5 +74,11 @@ export default class KeyboardManager {
       await this.tv.left(-diff);
     }
     this.col = col;
+  }
+
+  async shift(): Promise<void> {
+    await this.setRow(3);
+    await this.setCol(0);
+    await this.tv.ok();
   }
 }
