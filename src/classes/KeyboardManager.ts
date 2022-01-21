@@ -34,10 +34,10 @@ export default class KeyboardManager {
 
   async sendKey(key: string): Promise<void> {
     const [row, col] = this.keyToRowCol(key);
-    await this.setCol(col);
-    await this.setRow(row);
+    await this.setCol(col); // horizontal first
+    await this.setRow(row); // then vertical
     await this.tv.ok();
-    if (key === '-' || key === '_') await this.setRow(row - 1);
+    if (row === 3) await this.setRow(2); // special keys are annoying to navigate, so we go back to the previous row
   }
 
   keyToRowCol(key: string): [number, number] {
