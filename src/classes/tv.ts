@@ -1,12 +1,16 @@
+import KeyboardManager from './KeyboardManager';
+
 require('isomorphic-fetch');
 
 export default class TV {
   ip: string;
   backendURL: string;
+  keyboard: KeyboardManager;
 
   constructor(ip: string) {
     this.ip = ip;
     this.backendURL = process.env.SONY_BACKEND_URL || 'http://localhost:3000';
+    this.keyboard = new KeyboardManager(this);
   }
 
   sendIRCC(command: string, times?: number): Promise<Response[]> {
