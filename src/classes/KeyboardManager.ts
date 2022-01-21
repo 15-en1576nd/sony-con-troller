@@ -37,6 +37,7 @@ export default class KeyboardManager {
     await this.setCol(col);
     await this.setRow(row);
     await this.tv.ok();
+    if (key === '-' || key === '_') await this.setRow(row - 1);
   }
 
   keyToRowCol(key: string): [number, number] {
