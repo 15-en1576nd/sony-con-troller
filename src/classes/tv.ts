@@ -37,7 +37,7 @@ export default class TV {
   }
 
   ok(): Promise<Response> {
-    return this.sendIRCC('Enter');
+    return this.sendIRCC('Confirm');
   }
 
   off(): Promise<Response> {
