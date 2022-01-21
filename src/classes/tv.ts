@@ -39,4 +39,28 @@ export default class TV {
   ok(): Promise<Response> {
     return this.sendIRCC('Enter');
   }
+
+  off(): Promise<Response> {
+    return this.sendIRCC('PowerOff');
+  }
+
+  on(): Promise<Response> {
+    return this.sendIRCC('WakeUp');
+  }
+
+  sleep(): Promise<Response> {
+    return this.sendIRCC('Sleep');
+  }
+
+  volumeUp(): Promise<Response> {
+    return this.sendIRCC('VolumeUp');
+  }
+
+  volumeDown(): Promise<Response> {
+    return this.sendIRCC('VolumeDown');
+  }
+
+  mute(): Promise<Response> {
+    return this.sendIRCC('Mute');
+  }
 }
