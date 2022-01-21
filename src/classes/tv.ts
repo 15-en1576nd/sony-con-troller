@@ -101,7 +101,6 @@ export default class TV {
   }
 
   async rickRoll(): Promise<void> {
-    await this.browser();
     await this.exit();
     await this.down();
     await this.up(100);
