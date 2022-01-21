@@ -63,4 +63,26 @@ export default class TV {
   mute(): Promise<Response> {
     return this.sendIRCC('Mute');
   }
+
+  home(): Promise<Response> {
+    return this.sendIRCC('Home');
+  }
+
+  applicationLauncher(): Promise<Response> {
+    return this.sendIRCC('ApplicationLauncher');
+  }
+
+  async openBrowser(): Promise<void> {
+    // Go to home to make sure the applicationLauncher is not open
+    await this.home();
+    // Send applicationLauncher to open the app selection screen, then go right 5 times then 1 down. Then enter.
+    await this.applicationLauncher();
+    await this.right();
+    await this.right();
+    await this.right();
+    await this.right();
+    await this.right();
+    await this.down();
+    await this.ok();
+  }
 }
