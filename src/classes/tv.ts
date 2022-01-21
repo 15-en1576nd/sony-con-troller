@@ -16,7 +16,7 @@ export default class TV {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: command,
+      body: JSON.stringify({ command: command }),
     });
   }
 
