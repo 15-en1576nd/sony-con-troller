@@ -1,4 +1,4 @@
-import fetch, { Response } from 'node-fetch';
+require('isomorphic-fetch');
 
 export default class TV {
   ip: string;
