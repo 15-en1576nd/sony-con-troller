@@ -104,6 +104,17 @@ export default class TV {
     await this.ok();
   }
 
+  async openBrowserKeyboard(): Promise<void> {
+    await this.exit(); // Exit the keyboard if it is open
+
+    await this.right(); // Incase keyboard wasn't opened
+    await this.ok(); // we close the popup that was created
+
+    await this.down(); // Exit the URL bar if it is focused
+    await this.up(100); // Go to the top of the browser(which focuses url bar)
+    await this.ok(); // Open the keyboard
+  }
+
   async rickRoll(): Promise<void> {
     await this.exit();
     await this.down();
