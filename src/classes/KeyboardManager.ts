@@ -47,7 +47,7 @@ export default class KeyboardManager {
     for (let i = 0; i < this.keyboard.length; i++) {
       const rowKeys = this.keyboard[i];
       for (let j = 0; j < rowKeys.length; j++) {
-        if (rowKeys[j] === key) {
+        if (rowKeys[j].toLowerCase() === key.toLowerCase()) {
           row = i;
           col = j;
           break;
@@ -77,9 +77,7 @@ export default class KeyboardManager {
   }
 
   async shift(): Promise<void> {
-    await this.setRow(3);
-    await this.setCol(0);
-    await this.tv.ok();
+    await this.sendKey('Shift');
   }
 
   async clear(): Promise<void> {
