@@ -81,4 +81,11 @@ export default class KeyboardManager {
     await this.setCol(0);
     await this.tv.ok();
   }
+
+  async clear(): Promise<void> {
+    const [row, col] = this.keyToRowCol('Backspace');
+    await this.setRow(row);
+    await this.setCol(col);
+    await this.tv.ok(100);
+  }
 }
