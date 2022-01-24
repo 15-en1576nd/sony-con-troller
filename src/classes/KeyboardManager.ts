@@ -50,11 +50,11 @@ export default class KeyboardManager {
   async sendKey(key: string): Promise<void> {
     const [row, col, keyboard] = this.keyToRowCol(key);
     await this.setKeyboard(keyboard);
-    if (key.toUpperCase() === key && keyboard === 0) await this.shift(); // if the letter is capital, shift
-    await this.setCol(col); // horizontal first
-    await this.setRow(row); // then vertical
+    if (key.toUpperCase() === key && keyboard === 0) await this.shift(); // If the letter is capital, shift
+    await this.setCol(col); // Horizontal first
+    await this.setRow(row); // Then vertical
     await this.tv.ok();
-    if (row === 3) await this.setRow(2); // special keys are annoying to navigate, so we go back to the previous row
+    if (row === 3) await this.setRow(2); // Special keys are annoying to navigate, so we go back to the previous row
   }
 
   keyToRowCol(key: string): [number, number, number] {
