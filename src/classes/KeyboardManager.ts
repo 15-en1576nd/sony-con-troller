@@ -39,9 +39,13 @@ export default class KeyboardManager {
     await this.setRow(row); // then vertical
     await this.tv.ok();
     if (row === 3) await this.setRow(2); // special keys are annoying to navigate, so we go back to the previous row
+    if (key === ' ') this.col--; // I do not know why, but the space key is sending the column -1. Thanks sony TV
   }
 
   keyToRowCol(key: string): [number, number] {
+    // Special cases first
+    if (key === ' ') return [3, 3];
+
     let row = 0;
     let col = 0;
     for (let i = 0; i < this.keyboard.length; i++) {
